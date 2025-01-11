@@ -31,19 +31,19 @@ class FirestoreService {
 
   //delete project
   Future<void> deleteProject(String userID, String docID) async {
-    // sub-collection for expenses
+    //sub-collection for expenses
     final expensesRef =
         getUserCollection(userID).doc(docID).collection('expenses');
 
-    // Get all expenses in the sub-collection
+    //get all expenses in the sub-collection
     final expensesSnapshot = await expensesRef.get();
 
-    // Delete each document in the expenses sub-collection
+    //delete each document in the expenses sub-collection
     for (var expense in expensesSnapshot.docs) {
       await expensesRef.doc(expense.id).delete();
     }
 
-    // Finally, delete the project document
+    // delete the project document
     await getUserCollection(userID).doc(docID).delete();
   }
 
